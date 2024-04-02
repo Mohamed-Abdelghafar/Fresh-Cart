@@ -1,0 +1,41 @@
+<section class="my-3 p-3 bg-main-light rounded-3" *ngIf="allOrders">
+    <div *ngFor="let order of allOrders" class="rounded-3 shadow-sm p-2 my-2 border-main">
+        <div class="row d-flex align-items-center">
+            <div class="col-lg-4">
+                <div class="d-flex align-items-center flex-wrap w-100 my-2" *ngFor="let item of order.cartItems">
+                    <div class="w-25 me-3">
+                        <img [src]="item.product.imageCover" [alt]="item.product.title" class="w-100">
+                    </div>
+                    <div>
+                        <h2 class="h5">{{item.product.title.split(' ').slice(0,2).join(' ')}}</h2>
+                        <h3 class="h6 mb-0"><span class="text-main">Count : </span>{{item.count}}</h3>
+                        <div *ngIf="!item.priceAfterDiscount"><span class="text-main">Cost : </span>{{item.price |currency:' EGP '}}</div>
+                        <div><span class="text-main">Raiting : </span><span class="me-2">{{item.product.ratingsAverage}}</span></div>
+                        <div><i class="fa-solid fa-star small" *ngFor="let num of [1,2,3,4,5]" [ngClass]="{'rating-color':num<=item.product.ratingsAverage}"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="d-flex flex-wrap align-items-center justify-content-evenly">
+                    <div class="bg-white rounded-3 shadow-sm p-3 my-2">
+                        <h3 class="h5"><span class="text-main">Order Id :</span> {{order.id}}</h3>
+                        <p>Is Delivered : <span class="px-1 rounded-1 text-bg-success" *ngIf="order.isDelivered">Yes</span> <span class="px-1 rounded-1 text-bg-danger" *ngIf="order.isDelivered == false">No</span></p>
+                        <p>Is Paid : <span class="px-1 rounded-1 text-bg-success" *ngIf="order.isPaid">Yes</span> <span class="px-1 rounded-1 text-bg-danger" *ngIf="order.isPaid == false">No</span></p>
+                        <p>Payment Method : {{order.paymentMethodType}}</p>
+                    </div>
+                    <div class="bg-white rounded-3 shadow-sm p-3 my-2">
+                        <h3 class="h5 text-main">Order Cost</h3>
+                        <p>Order Price : {{order.totalOrderPrice |currency:' EGP '}}</p>
+                        <p>Tax precentage : 2%</p>
+                        <p>Shipping Price : {{100 |currency:' EGP '}} </p>
+                        <hr class="my-2">
+                        <p><span class="text-main">Order Total Price : </span>{{order.totalOrderPrice * 1.02 + 100|currency:' EGP '}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="py-5 text-white rounded-2" *ngIf="orderItems">
+        <p class="text-center h1 text-danger">No Orders done tell now<img class="ms-2" src="./assets/images/emoji.png" alt="emoje-sad" width="70px"></p>
+    </div>
+</section>

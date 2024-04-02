@@ -1,0 +1,26 @@
+:host {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.container {
+    width: 65%;
+}
+
+@media screen and (max-width:1200px){
+    .container{
+        width: 65%;
+    }
+}
+@media screen and (max-width:900px){
+    .container{
+        width: 75%;
+    }
+}
+
+@media screen and (max-width:500px){
+    .container{
+        width: 85%;
+    }
+}

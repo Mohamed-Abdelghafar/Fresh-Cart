@@ -1,0 +1,13 @@
+a {
+    transition: 0.4s;
+    &:hover {
+        color: rgb(198, 44, 44);
+    }
+}
+.loginBtn {
+    color: #0aad0a;
+    transition: 0.3s;
+    &:hover {
+        color: rgb(36, 150, 221);
+    }
+}

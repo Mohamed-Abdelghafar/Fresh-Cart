@@ -1,0 +1,38 @@
+<section *ngIf="arrived" class="my-3 py-4">
+    <div class="row d-flex align-items-center justify-content-between g-3">
+        <div class="col-md-4">
+            <div class="p-2 rounded-3 shadow bg-main-light">
+                <div>
+                    <img [src]="productDetails.imageCover" [alt]="productDetails.title" class="mainImg w-100" #img>
+                </div>
+                <div class="d-flex flex-wrap gap-2 justify-content-center mt-2">
+                    <div *ngFor="let img of productDetails.images| slice:0:4" class="itemContainer" (click)="active($event)">
+                        <img [src]="img" [alt]="productDetails.title" class="w-100">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="h-100 d-flex flex-column justify-content-center p-3 rounded-3 shadow bg-main-light">
+                <h1 class="h4 text-main">{{productDetails.title}}</h1>
+                <h2 class="h5">{{productDetails.description}}</h2>
+                <p class="mb-1"><span class="text-main">Avilable in stock : </span>{{productDetails.quantity}}</p>
+                <p class="mb-1"><span class="text-main">Sold : </span>{{productDetails.sold}}</p>
+                <hr>
+                <h3>{{productDetails.category.name}}</h3>
+                <div *ngIf="productDetails.priceAfterDiscount" class="priceBSale position-relative">
+                    <span class="text-danger small">{{productDetails.price | currency:' EGP '}}</span>
+                    <div class="discountLine position-absolute bg-danger top-50 start-50 translate-middle w-100"></div>
+                </div>
+                <div class="d-flex flex-wrap justify-content-between align-items-center">
+                    <div>
+                       <span *ngIf="productDetails.priceAfterDiscount"> <span class="text-main">Cost : </span>{{productDetails.priceAfterDiscount | currency:' EGP '}}</span>
+                       <span *ngIf="!productDetails.priceAfterDiscount"><span class="text-main">Cost : </span>{{productDetails.price | currency:' EGP '}}</span>
+                    </div>
+                    <div><i class="fa-solid fa-star" *ngFor="let num of [1,2,3,4,5]" [ngClass]="{'rating-color': num <= productDetails.ratingsAverage}"></i><span class="ms-2">{{productDetails.ratingsAverage}}</span></div>
+                </div>
+                <button #add class="btn-main w-100 mt-3" (click)="addToCart(add)">Add To Cart</button>
+            </div>
+        </div>
+    </div>
+</section>

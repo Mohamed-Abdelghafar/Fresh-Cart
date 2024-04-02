@@ -1,0 +1,25 @@
+<section class="p-3 my-3" *ngIf="arrived && show == false">
+    <h1 class="text-main">My Wish List <img class="ms-3" src="./assets/images/love.png" alt="wishList-icon" height="50"></h1>
+    <div class="row g-3">
+        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let product of userWishListProducts">
+            <div class="product p-2">
+                <div [routerLink]="['/details' , product.id]">
+                    <img [src]="product.imageCover" [alt]="product.title" class="w-100 mb-2">
+                    <h3 class="h6 text-main">{{product.category.name}}</h3>
+                    <h4 class="h6">{{product.title.split(' ').splice(0,2).join(' ')}}</h4>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>{{product.price | currency:' EGP '}}</span>
+                        <span><i class="fa-solid fa-star rating-color"></i>{{product.ratingsAverage}}</span>
+                    </div>
+                </div>
+                <div class="product-footer d-flex justify-content-between align-items-center mt-2 g-3">
+                    <button #addBtn class="btn-main w-75 align-middle" (click)="addToCart(product.id , addBtn)">Add To Cart</button>
+                    <button class="btn-main bg-danger" (click)="removeFromWishList(product.id)"><i class="fa-solid fa-trash fs-5"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="p-5 my-3 rounded-3 shadow bg-main-light d-flex justify-content-center align-items-center" *ngIf="show">
+    <h3 class="text-danger"> Your Wish List is empty</h3> <img class="ms-3" src="./assets/images/love.png" alt="wishList-icon" height="50">
+ </div>

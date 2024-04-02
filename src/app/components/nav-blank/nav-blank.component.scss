@@ -1,0 +1,100 @@
+li {
+    list-style: none;
+}
+.dropdown-menu[data-bs-popper]{
+    right: 0;
+    left: unset;
+}
+.dropdown-toggle::after {
+    display: none;
+}
+.userIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    padding: 10px;
+}
+.dropdown-menu .signOut {
+    transition: 0.2s;
+    &:hover {
+        margin-left: 10px;
+        color: #ad0a0a;
+    }
+}
+.dropdown-menu li {
+    transition: 0.2s;
+    &:hover {
+        color: #0aad0a;
+    }
+}
+
+.update {
+    display: none ;
+}
+
+.settings {
+    transition: 0.5s;
+    &:hover{
+        .update{
+            display: block;
+        }
+    }
+}
+.update li {
+    transition: 0.2s;
+    &:hover {
+        color: #0a84ad;
+    }
+}
+
+.searchInput {
+    width: 250px;
+    border: 2px solid #0aad0a;
+    &:focus {
+        box-shadow: 0 0 0 0.15rem #42d94245;
+    }
+}
+
+.searchList {
+    width:320px;
+    top: 110%;
+    left: 0;
+    right: 0;
+    min-height: 50px;
+    max-height: 300px;
+    background-color: rgb(215, 215, 215);
+}
+
+.box {
+    width:95%;
+    margin: auto;
+    border: 2px solid white;
+    transition: 0.3s;
+    &:hover {
+        border: 2px solid #0bbf0b;
+    }
+}
+
+@media screen and (max-width:360px) {
+    .searchInput {
+        width: 100%;
+    }
+    .searchList {
+        width: 80%;
+    }
+}
+
+.discount {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #bc1414;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

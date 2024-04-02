@@ -1,0 +1,32 @@
+<section class="my-3 p-3 rounded-3 bg-main-light">
+    <h1>Fill your address details</h1>
+    <form [formGroup]="detailsForm" (submit)="completePayment()">
+        <div class="mb-2">
+            <label for="address" class="text-main ps-1">Address Details</label>
+            <textarea #detailsInput class="form-control mt-2" name="address" id="address" placeholder="Enter Your Address ..." formControlName="details"></textarea>
+            <div class="alert alert-danger mt-2" *ngIf="detailsForm.get('details')?.errors && (detailsForm.get('address')?.touched || detailsInput.value.length > 0)">
+                <p class="mb-0" *ngIf="detailsForm.get('details')?.getError('minlength')">Min Characters 10</p>
+                <p class="mb-0" *ngIf="detailsForm.get('details')?.getError('maxlength')">Max Characters 30</p>
+                <p class="mb-0" *ngIf="detailsForm.get('details')?.getError('required')">Address is required</p>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="phone" class="text-main ps-1">Phone</label>
+            <input #userPhone class="form-control mt-2" type="tel" name="userPhone" id="phone" placeholder="Enter Your Phone ..." formControlName="phone">
+            <div class="alert alert-danger mt-2" *ngIf="detailsForm.get('phone')?.errors && (detailsForm.get('phone')?.touched || userPhone.value.length > 0)">
+                <p class="mb-0" *ngIf="detailsForm.get('phone')?.getError('required')">phone is required</p>
+                <p class="mb-0" *ngIf="detailsForm.get('phone')?.getError('pattern')">the phone number isn't valid</p>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label for="city" class="text-main ps-1">City</label>
+            <input #cityInput class="form-control mt-2" type="text" name="userCity" id="city" placeholder="Enter Your City ..." formControlName="city">
+            <div class="alert alert-danger mt-2" *ngIf="detailsForm.get('city')?.errors && (detailsForm.get('city')?.touched || cityInput.value.length > 0)">
+                <p class="mb-0" *ngIf="detailsForm.get('city')?.getError('minlength')">Min Characters 3</p>
+                <p class="mb-0" *ngIf="detailsForm.get('city')?.getError('maxlength')">Max Characters 15</p>
+                <p class="mb-0" *ngIf="detailsForm.get('city')?.getError('required')">City is required</p>
+            </div>
+        </div>
+        <button class="btn-main payment py-1 px-2 mt-3" [disabled]="detailsForm.invalid">Complete Payment</button>
+    </form>
+</section>

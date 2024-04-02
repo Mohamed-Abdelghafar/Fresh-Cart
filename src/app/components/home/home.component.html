@@ -1,0 +1,52 @@
+<section class="my-3 py-3">
+    <owl-carousel-o [options]="mainSlider">
+        <ng-template carouselSlide><img src="./assets/images/main-slider-1.jpeg" alt="main-img" class="w-100"
+                height="400"></ng-template>
+        <ng-template carouselSlide><img src="./assets/images/main-slider-2.jpeg" alt="main-img" class="w-100"
+                height="400"></ng-template>
+        <ng-template carouselSlide><img src="./assets/images/main-slider-3.jpeg" alt="main-img" class="w-100"
+                height="400"></ng-template>
+    </owl-carousel-o>
+</section>
+<section *ngIf="allCategoriesArrived">
+    <h2 class="text-main mb-3">Shop Popular Categories</h2>
+    <owl-carousel-o [options]="categoriesSlider">
+        <ng-container *ngFor="let category of allCategories ">
+            <ng-template carouselSlide>
+                <img [src]="category.image" [alt]="category.name" height="200">
+                <h3 class="text-muted h6 text-center mt-2">{{category.name}}</h3>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</section>
+<section class="p-3" *ngIf="allProductsArrived">
+    <h2 class="text-main mb-3">Shop Popular Products</h2>
+    <div class="row g-3">
+        <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let product of allProducts | slice:0:12">
+            <div class="product p-2 position-relative">
+                <div *ngIf="product.priceAfterDiscount" class="discount position-absolute">{{product.price|discount:product.priceAfterDiscount}} %</div>
+                <div [routerLink]="['/details' , product.id]" style="height: 435px;">
+                    <img [src]="product.imageCover" [alt]="product.title" class="productImg w-100 mb-2" height="300">
+                    <h3 class="h6 text-main">{{product.category.name}}</h3>
+                    <h4 class="h6">{{product.title.split(' ').splice(0,2).join(' ')}}</h4>
+                    <div *ngIf="product.priceAfterDiscount" class="priceBSale position-relative">
+                        <span class="text-danger small">{{product.price | currency:' EGP '}}</span>
+                        <div class="discountLine position-absolute bg-danger top-50 start-50 translate-middle w-100"></div>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center">
+                        <div>
+                           <span *ngIf="product.priceAfterDiscount">{{product.priceAfterDiscount | currency:' EGP '}}</span>
+                           <span *ngIf="!product.priceAfterDiscount">{{product.price | currency:' EGP '}}</span>
+                        </div>
+                        <div><i class="fa-solid fa-star" *ngFor="let num of [1,2,3,4,5]" [ngClass]="{'rating-color':num<=product.ratingsAverage}"></i><span class="ms-2">{{product.ratingsAverage}}</span></div>
+                    </div>
+                </div>
+                <div class="product-footer d-flex justify-content-between align-items-center mt-2 g-3">
+                    <button #addBtn class="btn-main w-75 align-middle" (click)="addToCart(product.id , addBtn)">Add To Cart</button>
+                    <button *ngIf="!userWishListData.includes(product.id)" class="btn-main" (click)="addToWishlist(product.id)"><i class="fa-regular fa-heart fs-5"></i></button>
+                    <button *ngIf="userWishListData.includes(product.id)" class="btn-main bg-danger" (click)="removeFromWishList(product.id)"><i class="fa-solid fa-heart fs-5"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,97 @@
+<nav #navBar class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm d-flex flex-column justify-content-start">
+    <div class="container">
+        <a class="navbar-brand" routerLink='home'><img src="./assets/images/freshcart-logo.svg"
+                alt="freshcart-logo"></a>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+            <ul class="navbar-nav ms-auto mt-2">
+                <li class="nav-item">
+                    <a class="nav-link ps-2" routerLink='home' routerLinkActive="active-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ps-2" routerLink='cart' routerLinkActive="active-link">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ps-2" routerLink='products' routerLinkActive="active-link">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ps-2" routerLink='categories' routerLinkActive="active-link">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ps-2" routerLink='brands' routerLinkActive="active-link">Brands</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container d-flex flex-wrap-reverse gap-2 justify-content-between align-items-center my-2">
+        <div class="position-relative d-flex">
+            <input #searchInput (keyup)="check()" (focus)="showSearchList(searchList)" [(ngModel)]="mainSearchTerm" type="search" class="searchInput rounded-start-3 rounded-end-0 form-control"
+                placeholder="Search ....">
+            <span class="bg-main searchIcon px-3 py-2 rounded-end-3 rounded-start-0"><i class="fa-solid fa-magnifying-glass text-white fa-1x"></i></span>    
+            <div #searchList class="position-absolute searchList rounded-3 shadow overflow-auto p-2 mt-2 d-none">
+                <div *ngIf="mainSearchTerm">
+                    <div *ngFor="let product of allProducts|search:mainSearchTerm">
+                        <div class="p-2 position-relative">
+                            <div (click)="productDetails(product.id , searchList)" class="box text-center d-flex flex-row gap-3 align-items-center shadow-sm p-2" role="button">
+                                    <img [src]="product.imageCover" [alt]="product.title"  width="40%" class="shadow" >
+                                <div *ngIf="product.priceAfterDiscount" class="discount position-absolute top-0 start-0">
+                                    {{product.price|discount:product.priceAfterDiscount}} %
+                                </div>
+                                <h3 class="h6 mb-0 small text-center">{{product.title.split(' ').splice(0,2).join(' ')}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="!mainSearchTerm  || showText">
+                    <div>
+                        Nothing to show ....
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="mb-0 ps-0 d-flex flex-wrap align-items-center justify-content-center">
+            <li class="me-2">
+                <a class="nav-link position-relative" routerLink="allorders">
+                    <i class="fa-solid fa-truck fa-2x text-main"></i>
+                    <span class="badge bg-danger position-absolute top-0 end-0 translate-middle-y">{{userOrdersNumber}}</span>
+                </a>
+            </li>
+            <li class="me-2">
+                <a class="nav-link position-relative" routerLink="wishList">
+                    <i class="fa-solid fa-heart fa-2x text-main"></i>
+                    <span class="badge bg-danger position-absolute top-0 end-0 translate-middle-y">{{wishListProductsCount}}</span>
+                </a>
+            </li>
+            <li class="me-3">
+                <a class="nav-link position-relative" routerLink="cart">
+                    <i class="fa-solid fa-cart-shopping fa-2x text-main"></i>
+                    <span class="badge bg-danger position-absolute top-0 end-0 translate-middle-y">{{itemsCartCount}}</span>
+                </a>
+            </li>
+            <li class="me-2 dropdown-center">
+                <button class=" btn-main dropdown-toggle d-flex align-items-center rounded-4 px-3 py-2"
+                    type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="userIcon text-main me-2"><i class="fa-solid fa-user fs-5"></i></div> {{userName.split(' ').slice(0,1).join(' ')}}
+                </button>
+                <ul class="dropdown-menu rounded-3 text-center">
+                    <li class="signOut" role="button" (click)="signOut()">
+                        Sign Out <i class="fa-solid fa-arrow-right-from-bracket ms-2"></i>
+                    </li>
+                    <li class="settings mt-2" role="button">
+                        Settings <i class="fa-solid fa-sliders ms-2"></i>
+                        <ul class="update dropdown-menu text-center py-2">
+                            <li class=" my-2" role="button" routerLink="updatePassword">
+                                Update Password
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

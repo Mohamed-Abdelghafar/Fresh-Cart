@@ -1,0 +1,31 @@
+:host {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.scrollUpBtn{
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    bottom: 1%;
+    right: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.container {
+    margin-top: 125px;
+}
+
+@media screen and (max-width:767px) {
+    .container {
+        margin-top: 165px;
+    }
+}
+@media screen and (max-width:270px) {
+    .container {
+        margin-top: 250px;
+    }
+}
